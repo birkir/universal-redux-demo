@@ -1,14 +1,10 @@
-[![Travis](https://travis-ci.org/ueno-llc/starter-kit.svg)](https://travis-ci.org/ueno-llc/starter-kit)
-[![Dependencies](https://david-dm.org/ueno-llc/starter-kit.svg)](https://david-dm.org/ueno-llc/starter-kit)
-[![devDependencies](https://david-dm.org/ueno-llc/starter-kit/dev-status.svg)](https://david-dm.org/ueno-llc/starter-kit#info=devDependencies&view=table)
+[![Travis](https://travis-ci.org/birkir/universal-redux-demo.svg)](https://travis-ci.org/birkir/universal-redux-demo)
+[![Dependencies](https://david-dm.org/birkir/universal-redux-demo.svg)](https://david-dm.org/birkir/universal-redux-demo)
+[![devDependencies](https://david-dm.org/birkir/universal-redux-demo/dev-status.svg)](https://david-dm.org/birkir/universal-redux-demo#info=devDependencies&view=table)
 
-# UENO. Starter kit
+# Universal Redux Demo
 
-Starter kit with server side rendering, eslint, less, stylelint and enzyme tests.
-
-**Before working on a new project**
-
-Change stuff in `app.json` and `package.json`.
+Repo to reflect my blogpost: https://medium.com/@birkir.gudjonsson/server-side-react-redux-experiment-43e0e1f76a30#.yuo59hmx5
 
 ## Install
 
@@ -20,38 +16,3 @@ $ npm install
 ```bash
 $ npm run dev
 ```
-
-## Run release
-```bash
-$ npm start
-```
-
-# Configuration make
-
-### `target`
-Specify which platform to target, currently accepts `"web"` (client), and `"node"` (server).
-
-### `hot`
-Boolean value to enable hot reloading on the client. Only works in development mode.
-
-### `offline`
-Boolean value to enable offline support. You should specify which routes to cache within the `offlineCache` array option.
-
-### `offlineCache`
-Array of routes to cache. Defaults to `['/']` (the index page).
-
-**TODO:** Read routes.js and allow attribute to enable offline availability.
-
-### `entry`
-Path to an entry point for packaging. Will output the same name into `./build`.
-
-**TODO:** Allow multiple entry points.
-
-### `debug`
-Enable or disable debug mode. The production will always overwrite with `false`.
-
-### `devtool`
-Set the devtool sourcemapping. Defaults to `cheap-module-eval-source-map` for client and `eval-source-map` for server.
-
-### `eslint`
-Enable or disable eslinting of the javascript on runtime. Only in debug mode.

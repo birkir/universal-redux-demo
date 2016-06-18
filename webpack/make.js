@@ -2,7 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
-const OfflinePlugin = require('offline-plugin');
 const NODE_ENV = process.env.NODE_ENV;
 
 /**
@@ -14,19 +13,8 @@ const NODE_ENV = process.env.NODE_ENV;
  * ### `hot`
  * Boolean value to enable hot reloading on the client. Only works in development mode.
  *
- * ### `offline`
- * Boolean value to enable offline support. You should specify which routes to cache
- * within the `offlineCache` array option.
- *
- * ### `offlineCache`
- * Array of routes to cache. Defaults to `['/']` (the index page).
- *
- * **TODO:** Read routes.js and allow attribute to enable offline availability.
- *
  * ### `entry`
- * Path to an entry point for packaging. Will output the same name into `./build`.
- *
- * **TODO:** Allow multiple entry points.
+ * Object of path to an entry point for packaging. Will output the same name into `./build`.
  *
  * ### `debug`
  * Enable or disable debug mode. The production will always overwrite with `false`.
@@ -41,9 +29,10 @@ const NODE_ENV = process.env.NODE_ENV;
 module.exports = function make(options) {
 
   const isRelease = (NODE_ENV === 'production');
+  const isDev = !isRelease;
   const isClient = (options.target === 'web');
   const isHot = isClient && (options.hot === true) && !isRelease;
-  const isExtracting = (!isClient && isRelease);
+  const isExtracting = !(isClient && isDev);
 
   // Init entry point with babel (always)
   let entry = ['babel-polyfill'];
@@ -69,31 +58,6 @@ module.exports = function make(options) {
     babel: 'babel-loader?presets[]=react&presets[]=es2015'
       + `&presets[]=stage-0${isHot ? '&presets[]=react-hmre' : ''}`,
   };
-
-  if (isClient && options.offline) {
-    const routes = [].concat(options.offlineCache ? options.offlineCache : []);
-
-    plugins.push(new OfflinePlugin({
-      caches: {
-        main: [
-          '/',
-          '/styles.css',
-          ':rest:',
-        ],
-        additional: routes,
-      },
-      externals: ['/', ...routes],
-      safeToUseOptionalCaches: true,
-      updateStrategy: 'all',
-      version: '[hash]',
-      ServiceWorker: {
-        output: 'sw.js',
-      },
-      AppCache: {
-        directory: 'appcache/',
-      },
-    }));
-  }
 
   // Hot Loading
   if (isHot) {
@@ -193,16 +157,6 @@ module.exports = function make(options) {
   if (!isClient) {
     // Don't import node binary packages
     config.externals = /^[a-z\-0-9]+$/;
-  }
-
-  if (options.lazy && isClient) {
-    const jsLoader = config.module.loaders.find(item => '.js'.match(item.test));
-    jsLoader.exclude = /node_modules|routes\/([^\/]+\/?[^\/]+)\.lazy.js/;
-    config.module.loaders.push({
-      test: /routes\/([^\/]+\/?[^\/]+)\.lazy.js/,
-      loader: `bundle-loader?lazy!${loader.babel}`,
-      exclude: /node_modules/,
-    });
   }
 
   return config;

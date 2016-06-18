@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import s from './Container.less';
+import s from './styles.less';
 
 /**
  * Container component
  */
-export default class Container extends Component {
+export default class PlanetList extends Component {
 
   static propTypes = {
     children: PropTypes.node,

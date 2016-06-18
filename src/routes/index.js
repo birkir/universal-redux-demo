@@ -3,18 +3,11 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from 'containers/App';
 import Home from 'routes/Home';
-import About from 'routes/About.lazy';
+import Planet from 'routes/Planet';
 
-const loadRoute = pkg => (location, cb) => {
-  if (__CLIENT__) {
-    return pkg(module => cb(null, module.default));
-  }
-  return cb(null, pkg);
-};
-
-export default (
+export default (store) => (
   <Route path="/" component={App}>
     <IndexRoute component={Home} />
-    <Route path="about" getComponent={loadRoute(About)} />
+    <Route path="planet/:id" component={Planet} />
   </Route>
 );

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PlanetList from 'containers/PlanetList';
 
 /**
  * Home route component
@@ -12,7 +13,8 @@ export default class Home extends Component {
   render() {
     return (
       <div>
-        <h1>Home</h1>
+        <h1>List of planets</h1>
+        <PlanetList />
       </div>
     );
   }
