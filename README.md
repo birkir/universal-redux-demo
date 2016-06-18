@@ -4,7 +4,13 @@
 
 # Universal Redux Demo
 
-Repo to reflect my blogpost: https://medium.com/@birkir.gudjonsson/server-side-react-redux-experiment-43e0e1f76a30#.yuo59hmx5
+Demo
+
+http://universal-redux-demo.herokuapp.com/
+
+Blogpost
+
+https://medium.com/@birkir.gudjonsson/server-side-react-redux-experiment-43e0e1f76a30
 
 ## Install
 
